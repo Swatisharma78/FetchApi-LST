@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>California Cafe Directory</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <style>
+ 
+
+    #sam>div{
+        display: flex;   
+        /* grid-template-columns: 1fr; */
+        /* justify-content: center; */
+        /* margin: auto; */
+        margin-top: 50px;
+        gap:100px;
+    }
+    @media all and (min-width: 800px) and (max-width: 1200px){
+        #sam{
+            grid-template-columns: 1fr  1fr 1fr;
+        }
+    }
+    @media all and (min-width: 600px) and (max-width: 800px){
+        #sam{
+            grid-template-columns: 1fr 1fr ;
+        }
+    }
+    @media all and (min-width: 100px) and (max-width: 600px){
+        #sam{
+            grid-template-columns: 1fr  ;
+        }
+    }
+  
+   
+        </style>
+
+  <body>
+   
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12" id="header-wrapper">
+          <div class="container">
+            <div class="row">
+              <div class="col-12" id="header">
+                <h2>California Cafe Directory</h2>
+              </div>
+              
+              <div class="col-12" id="search-wrapper">
+                <input type="text" placeholder="Search your favorite cafes!">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-12" id="table-wrapper">
+              <table>
+                <thead>
+                  <tr class="table100-head">
+                    <th class="column1">S No</th>
+                    <th class="column2">Cafe Name</th>
+                    <th class="column3">Address</th>
+                    <th class="column4">Postal Code</th>
+                    <th class="column5">Lat</th>
+                    <th class="column6">Long</th>
+                  </tr>
+                </thead>
+           
+              </table>
+              <div id="sam"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  const getData= async()=>{
+      let res= await fetch("https://raw.githubusercontent.com/debojyoti/places-fake-rest-api/master/places.json")
+      let places = await res.json()
+      dispaly(places.places)
+      console.log(places.places)
+  }
+  getData()
+
+  const dispaly= (places) =>{
+      places.forEach((e)=> {
+          let div = document.createElement("div")
+          let id =document.createElement("p")
+          id.innerText=e.id
+
+          let lat =document.createElement("p")
+          lat.innerText=e.lat
+
+          let locality =document.createElement("p")
+          locality.innerText=e.locality
+
+          let long =document.createElement("p")
+          long.innerText=e.long+"  "+" "
+
+          let postal_code=document.createElement("p")
+          postal_code.innerText=e.postal_code
+
+
+          let street_no=document.createElement("p")
+          street_no.innerText=e.street_no
+
+
+
+          div.append(locality,postal_code,lat,long)
+
+          document.querySelector("#sam").append(div)
+      })
+  }
+</script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+ 
+
+#sam{
+    display: grid;   
+    grid-template-columns: 1fr 1fr 1fr  1fr;
+    justify-content: center;
+    margin: auto;
+    margin-top: 50px;
+    gap:10px;
+}
+@media all and (min-width: 800px) and (max-width: 1200px){
+    #sam{
+        grid-template-columns: 1fr  1fr 1fr;
+    }
+}
+@media all and (min-width: 600px) and (max-width: 800px){
+    #sam{
+        grid-template-columns: 1fr 1fr ;
+    }
+}
+@media all and (min-width: 100px) and (max-width: 600px){
+    #sam{
+        grid-template-columns: 1fr  ;
+    }
+}
+
+p{
+    width: 80%;
+    color: red;
+}
+img{
+    height: 100px;
+    width: 150px;
+}
+#head{
+    color: red;
+}
+    </style>
+
+</head>
+<body>
+    <div id="sam"></div>
+   
+</body>
+</html>
+<script>
+    const getData= async()=>{
+        let res= await fetch("https://raw.githubusercontent.com/debojyoti/places-fake-rest-api/master/places.json")
+        let places = await res.json()
+        dispaly(places.places)
+        console.log(places.places)
+    }
+    getData()
+
+    const dispaly= (places) =>{
+        places.forEach((e)=> {
+            let div = document.createElement("div")
+            let id =document.createElement("p")
+            id.innerText=e.id
+
+            let lat =document.createElement("h2")
+            lat.innerText=e.lat
+
+            let locality =document.createElement("p")
+            locality.innerText=e.locality
+
+            let long =document.createElement("h3")
+            long.innerText=e.long+"  "+"$"
+
+            let postal_code=document.createElement("p")
+            postal_code.innerText=e.postal_code
+
+
+            let street_no=document.createElement("p")
+            street_no.innerText=e.street_no
+
+
+
+            div.append(id,lat,locality,long,postal_code,street_no)
+
+            document.querySelector("#sam").append(div)
+        })
+    }
+</script>
